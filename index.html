@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speakurve</title>
+<meta name="theme-color" content="#00d4ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<script src="chart.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Speakurve</h1>
+
+<div class="top-display">
+  <div class="db-big" id="bigDb">-- dB</div>
+  <div class="freq-current" id="freqCurrent">Ready</div>
+</div>
+
+<div class="control-row">
+  <select id="rangeStart"></select>
+  <select id="rangeEnd"></select>
+  <div class="btn-group">
+    <button class="btn btn-primary" id="btnStart">▶ Start</button>
+    <button class="btn btn-danger hidden" id="btnStop">⏹ Stop</button>
+  </div>
+</div>
+
+<div class="action-row">
+  <button class="btn btn-secondary" id="btnClear" disabled>🗑 Clear</button>
+  <button class="btn btn-secondary" id="btnSave" disabled>💾 Save</button>
+    <button class="btn btn-secondary" id="btnExport" disabled>📥 Export</button>
+</div>
+
+<div class="tabs">
+  <button class="tab active" data-tab="chart">Chart</button>
+  <button class="tab" data-tab="table">Table</button>
+</div>
+<div class="tab-content active" id="tabChart">
+  <div class="chart-wrap">
+    <canvas id="chart"></canvas>
+  </div>
+</div>
+<div class="tab-content" id="tabTable">
+  <div class="panel" style="margin-bottom:0">
+    <div style="overflow-x:auto">
+      <table id="resultsTable">
+        <thead><tr><th>Frequency</th><th>Level (dB)</th><th></th></tr></thead>
+        <tbody id="resultsBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<div class="panel">
+  <div class="panel-title">Saved Tests</div>
+  <div id="savedTestsList"></div>
+  <div style="margin-top:12px">
+    <button class="btn btn-secondary btn-small" id="btnImport">📤 Import</button>
+    <input type="file" id="fileInput" accept=".json" class="hidden">
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
