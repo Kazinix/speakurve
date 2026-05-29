@@ -1,4 +1,4 @@
-const CACHE = 'speakurve-v1';
+const CACHE = 'speakurve-v2';
 const SCOPE = '/speakurve/';
 
 self.addEventListener('install', e => {
@@ -12,7 +12,14 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('activate', e => {
-  e.waitUntil(clients.claim());
+  e.waitUntil(
+    Promise.all([
+      clients.claim(),
+      caches.keys().then(keys => Promise.all(
+        keys.filter(k => k !== CACHE).map(k => caches.delete(k))
+      ))
+    ])
+  );
 });
 
 self.addEventListener('fetch', e => {
