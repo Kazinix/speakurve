@@ -3,7 +3,7 @@ const CACHE = 'speakurve-v1';
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(c => c.addAll([
-      '/', '/index.html', '/style.css', '/script.js', '/chart.min.js', '/manifest.json', '/icon.svg'
+      '.', './index.html', './style.css', './script.js', './chart.min.js', './manifest.json', './icon.svg'
     ]))
   );
   self.skipWaiting();
