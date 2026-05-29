@@ -1,9 +1,11 @@
 const CACHE = 'speakurve-v1';
+const SCOPE = '/speakurve/';
 
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(CACHE).then(c => c.addAll([
-      '.', './index.html', './style.css', './script.js', './chart.min.js', './manifest.json', './icon.svg'
+      SCOPE, `${SCOPE}index.html`, `${SCOPE}style.css`, `${SCOPE}script.js`,
+      `${SCOPE}chart.min.js`, `${SCOPE}manifest.json`, `${SCOPE}icon.svg`
     ]))
   );
   self.skipWaiting();
@@ -14,7 +16,10 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(r => r || fetch(e.request))
-  );
+  const url = new URL(e.request.url);
+  if (url.pathname.startsWith(SCOPE) || url.pathname === '/speakurve') {
+    e.respondWith(
+      caches.match(e.request).then(r => r || fetch(e.request))
+    );
+  }
 });
